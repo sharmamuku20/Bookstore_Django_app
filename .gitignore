@@ -1,0 +1,32 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Django migrations cache
+*/migrations/__pycache__/
+*/__pycache__/
+
+# Environment files
+.env
+
+# pytest cache
+.pytest_cache/
+
+# SQLite database (if used locally)
+db.sqlite3
+
+# VS Code settings
+.vscode/
+
+# Docker
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Other
+*.swp
+*.swo
