@@ -20,8 +20,11 @@ def get_env_var(var_name):
 SECRET_KEY = get_env_var('SECRET_KEY')
 
 SWAGGER_USE_COMPAT_RENDERERS = False
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = get_env_var('DEBUG').lower() in ['true', '1', 'yes']
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    ".elasticbeanstalk.com,localhost,127.0.0.1"
+).split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,6 +70,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bookstore.wsgi.application'
 
+#For localhost
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': get_env_var('POSTGRES_DB'),
+#         'USER': get_env_var('POSTGRES_USER'),
+#         'PASSWORD': get_env_var('POSTGRES_PASSWORD'),
+#         'HOST': get_env_var('POSTGRES_HOST'),
+#         'PORT': get_env_var('POSTGRES_PORT'),
+#     }
+# }
+
+#For EB
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -74,6 +91,9 @@ DATABASES = {
         'PASSWORD': get_env_var('POSTGRES_PASSWORD'),
         'HOST': get_env_var('POSTGRES_HOST'),
         'PORT': get_env_var('POSTGRES_PORT'),
+        'OPTIONS': {
+            'sslmode': os.getenv("POSTGRES_SSLMODE", "require")
+        },
     }
 }
 
@@ -89,7 +109,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {

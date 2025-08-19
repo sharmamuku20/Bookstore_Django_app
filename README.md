@@ -6,7 +6,7 @@ Includes interactive documentation via Swagger and Redoc.
 ---
 
 ## 🚀 Features
-
+git 
 - **Books**: List, filter, search, and paginate books.
 - **Categories**: Organize books by category.
 - **Orders**: Authenticated users can place and view orders.
