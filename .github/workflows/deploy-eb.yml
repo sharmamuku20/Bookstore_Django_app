@@ -63,7 +63,9 @@ jobs:
               ".dockerignore" \
               "README.md" \
               "sample.env" \
-              "deploy.py"
+              "deploy.py" \
+              "pytest.ini" \
+              "wait_for_db.py"
 
       - name: Show zip contents
         run: unzip -l deploy.zip
