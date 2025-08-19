@@ -70,18 +70,18 @@ jobs:
       - name: Show zip contents
         run: unzip -l deploy.zip
 
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ secrets.AWS_REGION }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      # - name: Deploy to Elastic Beanstalk
-      #   uses: einaregilsson/beanstalk-deploy@v22
-      #   with:
-      #     application_name: ${{ secrets.EB_APP_NAME }}
-      #     environment_name: ${{ secrets.EB_ENV_NAME }}
-      #     version_label: github-${{ github.run_number }}
-      #     region: ${{ secrets.AWS_REGION }}
-      #     deployment_package: deploy.zip
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          application_name: ${{ secrets.EB_APP_NAME }}
+          environment_name: ${{ secrets.EB_ENV_NAME }}
+          version_label: github-${{ github.run_number }}
+          region: ${{ secrets.AWS_REGION }}
+          deployment_package: deploy.zip
