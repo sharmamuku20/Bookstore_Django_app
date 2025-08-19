@@ -46,6 +46,7 @@ jobs:
           POSTGRES_PORT: 5432
           SECRET_KEY: testsecret
           DEBUG: True
+          POSTGRES_SSLMODE: disable
         run: |
           python manage.py migrate --noinput
           pytest --maxfail=1 --disable-warnings -q
