@@ -3,6 +3,7 @@ from datetime import timedelta
 import os
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
+import pytest
 
 # Load environment variables from .env file
 BASE_DIR = Path(__file__).resolve().parent.parent

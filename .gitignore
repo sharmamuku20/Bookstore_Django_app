@@ -9,7 +9,8 @@ __pycache__/
 */__pycache__/
 
 # Environment files
-.env
+*.env*
+*.env
 
 # pytest cache
 .pytest_cache/
